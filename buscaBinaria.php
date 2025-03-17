@@ -18,11 +18,13 @@ function binarySearch(array $arr, int $target) {
     return NOT_FOUND; 
 }
 
-$result = 0;
+$result = null;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $numero = isset($_POST["numero"]) ? (int)$_POST["numero"] : 0;
+    $sortedArray = [1, 4, 6, 8, 15, 19, 22, 24, 26, 29, 33, 35, 37, 38, 40, 49, 51, 55];
+
     if ($numero >= 0) {
-        $result = binarySearch([1,4,6,8,15, 19,22,24,26,29,33,35,37,38,40,49,55,51],$numero);
+        $result = binarySearch($sortedArray,$numero);
     }
 }
 
@@ -45,13 +47,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
     
     <!-- b -->
-    <?php if (!empty($result)): ?>
-        <h3>Resultado:</h3> <p>$result</p>
-    
-    <?php endif; ?>
-
-    <?php if ($result == NOT_FOUND): ?>
-      <h3>Número não encontrado.</h3>
+    <?php if (isset($result) && $result !== NOT_FOUND): ?>
+        <h3>Resultado:</h3> 
+        <p>O número foi encontrado no índice: <strong><?php echo $result; ?></strong></p>
+    <?php elseif ($result === NOT_FOUND): ?>
+        <h3>Número não encontrado.</h3>
     <?php endif; ?>
 </body>
 </html>
